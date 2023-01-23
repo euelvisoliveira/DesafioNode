@@ -37,7 +37,7 @@ app.put('/orders/:id', (request, response) => {
   const index = orders.findIndex((order) => order.id === id)
 
   if (index < 0) {
-    return response.status(404).json({ message: 'User not found' })
+    return response.status(404).json({ message: 'Order not found' })
   }
 
   orders[index] = updatedStatus
@@ -51,7 +51,7 @@ app.delete('/orders/:id', (request, response) => {
   const index = orders.findIndex((order) => order.id === id)
 
   if (index < 0) {
-    return response.status(404).json({ message: 'User not found' })
+    return response.status(404).json({ message: 'Order not found' })
   }
 
   orders.splice(index, 1)
@@ -65,13 +65,13 @@ app.get('/orders/:id', (request, response) => {
   const index = orders.findIndex((order) => order.id === id)
 
   if (index < 0) {
-    return response.status(404).json({ message: 'User not found' })
+    return response.status(404).json({ message: 'Order not found' })
   }
 
   return response.json(orders[index])
 })
 
-app.path('/orders/:id', (request, response) => {
+app.patch('/orders/:id', (request, response) => {
   const { id } = request.params
 
   const updatedStatus = { status: 'Pronto' }
@@ -82,7 +82,7 @@ app.path('/orders/:id', (request, response) => {
     return response.status(404).json({ message: 'User not found' })
   }
 
-  orders[index] = updatedStatus
+  orders[index].status = updatedStatus.status
 
   return response.json(orders)
 })
